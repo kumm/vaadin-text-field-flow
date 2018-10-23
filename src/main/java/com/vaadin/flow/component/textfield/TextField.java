@@ -265,6 +265,29 @@ public class TextField extends GeneratedVaadinTextField<TextField, String>
     }
 
     /**
+     * Timeout in milliseconds to wait after a user input action
+     * to fire a `change` event.
+     * Event is deferred if a new action is preformed during this timeout.
+     *
+     * @param commitTimeout
+     *            the commit timeout
+     */
+    public void setCommitTimeout(int commitTimeout) {
+        super.setCommitTimeout(commitTimeout);
+    }
+
+    /**
+     * Timeout in milliseconds to wait after a user input action
+     * to fire a `change` event.
+     * Event is deferred if a new action is preformed during this timeout.
+     *
+     * @return the {@code commitTimeout} property from the webcomponent
+     */
+    public int getCommitTimeout() {
+        return (int) getCommitTimeoutDouble();
+    }
+
+    /**
      * Specifies that the user must fill in a value.
      *
      * @return the {@code required} property from the webcomponent

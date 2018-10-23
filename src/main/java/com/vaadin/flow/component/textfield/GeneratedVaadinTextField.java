@@ -514,6 +514,42 @@ public abstract class GeneratedVaadinTextField<R extends GeneratedVaadinTextFiel
      * Description copied from corresponding location in WebComponent:
      * </p>
      * <p>
+     * Timeout in milliseconds to wait after a user input action
+     * to fire a `change` event.
+     * Event is deferred if a new action is preformed during this timeout.
+     * <p>
+     * This property is not synchronized automatically from the client side, so
+     * the returned value may not be the same as in client side.
+     * </p>
+     *
+     * @return the {@code commit-timeout} property from the webcomponent
+     */
+    protected double getCommitTimeoutDouble() {
+        return getElement().getProperty("commitTimeout", 0.0);
+    }
+
+    /**
+     * <p>
+     * Description copied from corresponding location in WebComponent:
+     * </p>
+     * <p>
+     * Timeout in milliseconds to wait after a user input action
+     * to fire a `change` event.
+     * Event is deferred if a new action is preformed during this timeout.
+     * </p>
+     *
+     * @param commitTimeout
+     *            the double value to set
+     */
+    protected void setCommitTimeout(double commitTimeout) {
+        getElement().setProperty("commitTimeout", commitTimeout);
+    }
+
+    /**
+     * <p>
+     * Description copied from corresponding location in WebComponent:
+     * </p>
+     * <p>
      * The name of the control, which is submitted with the form data.
      * <p>
      * This property is not synchronized automatically from the client side, so

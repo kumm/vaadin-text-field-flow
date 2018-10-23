@@ -68,9 +68,16 @@ public class TextFieldView extends DemoView {
         textField.setId("text-field-with-value-change-listener");
         message.setId("text-field-value");
 
+        TimeoutFieldProvider timeoutFieldProvider
+                = new TimeoutFieldProvider(textField::setCommitTimeout);
+        ValueChangeModeButtonProvider valueChangeModeButtonProvider
+                = new ValueChangeModeButtonProvider(
+                        textField, timeoutFieldProvider::onValueModeChange);
+
         addCard("Basic text field", textField,
-                new ValueChangeModeButtonProvider(textField)
-                        .getToggleValueSyncButton(),
+                new Div(
+                        valueChangeModeButtonProvider.getToggleValueSyncButton(),
+                        timeoutFieldProvider.getField()),
                 message);
     }
 

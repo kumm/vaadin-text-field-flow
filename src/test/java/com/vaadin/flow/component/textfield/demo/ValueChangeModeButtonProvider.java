@@ -18,15 +18,24 @@ package com.vaadin.flow.component.textfield.demo;
 import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.data.value.HasValueChangeMode;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.function.SerializableConsumer;
 
 public class ValueChangeModeButtonProvider {
     public static final String TOGGLE_BUTTON_ID = "toggleValueChangeMode";
 
     private final HasValueChangeMode elementWithChangeMode;
+    private final SerializableConsumer<ValueChangeMode> modeChangeHandler;
 
     ValueChangeModeButtonProvider(
             HasValueChangeMode elementWithChangeMode) {
+        this(elementWithChangeMode, valueChangeMode -> {});
+    }
+
+    ValueChangeModeButtonProvider(
+            HasValueChangeMode elementWithChangeMode,
+            SerializableConsumer<ValueChangeMode> modeChangeHandler) {
         this.elementWithChangeMode = elementWithChangeMode;
+        this.modeChangeHandler = modeChangeHandler;
     }
 
     NativeButton getToggleValueSyncButton() {
@@ -38,6 +47,7 @@ public class ValueChangeModeButtonProvider {
                     elementWithChangeMode.getValueChangeMode());
             elementWithChangeMode.setValueChangeMode(newMode);
             toggleValueSync.setText(getToggleButtonText(newMode));
+            modeChangeHandler.accept(newMode);
         });
         return toggleValueSync;
     }
