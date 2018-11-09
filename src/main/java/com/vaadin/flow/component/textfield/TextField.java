@@ -20,8 +20,8 @@ import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasValidation;
 import com.vaadin.flow.component.InputNotifier;
 import com.vaadin.flow.component.KeyNotifier;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.value.HasValueChangeMode;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
 /**
@@ -29,13 +29,15 @@ import com.vaadin.flow.data.value.ValueChangeMode;
  *
  * @author Vaadin Ltd
  */
+@JavaScript("frontend://textConnector.js")
 public class TextField extends GeneratedVaadinTextField<TextField, String>
-        implements HasSize, HasValidation, HasValueChangeMode,
+        implements HasSize, HasValidation, HasLazyValueChangeMode,
         HasPrefixAndSuffix, InputNotifier, KeyNotifier, CompositionNotifier,
         HasAutocomplete, HasAutocapitalize, HasAutocorrect {
     private ValueChangeMode currentMode;
 
-    private boolean isConnectorAttached;
+    private TextConnector<TextField> textConnector = new TextConnector<>(this);
+    private int valueChangeTimeout = VALUE_CHANGE_TIMEOUT;
 
     /**
      * Constructs an empty {@code TextField}.
@@ -158,6 +160,7 @@ public class TextField extends GeneratedVaadinTextField<TextField, String>
         currentMode = valueChangeMode;
         setSynchronizedEvent(
                 ValueChangeMode.eventForMode(valueChangeMode, "value-changed"));
+        textConnector.getLazyChange().updateLazyMode(valueChangeMode);
     }
 
     @Override
@@ -367,11 +370,17 @@ public class TextField extends GeneratedVaadinTextField<TextField, String>
     @Override
     public void setRequiredIndicatorVisible(boolean requiredIndicatorVisible) {
         super.setRequiredIndicatorVisible(requiredIndicatorVisible);
-        if (!isConnectorAttached) {
-            RequiredValidationUtil.attachConnector(this);
-            isConnectorAttached = true;
-        }
-        RequiredValidationUtil.updateClientValidation(requiredIndicatorVisible,
-                this);
+        textConnector.getValidation().updateClientValidation(requiredIndicatorVisible);
+    }
+
+    @Override
+    public void setValueChangeTimeout(int valueChangeTimeout) {
+        this.valueChangeTimeout = valueChangeTimeout;
+        textConnector.getLazyChange().setValueChangeTimeout(valueChangeTimeout);
+    }
+
+    @Override
+    public int getValueChangeTimeout() {
+        return valueChangeTimeout;
     }
 }

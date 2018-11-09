@@ -44,7 +44,7 @@ public class TextFieldIT extends ComponentDemoTest {
 
         updateValues(textFieldValueDiv, textField, true);
         layout.findElement(
-                By.id(ValueChangeModeButtonProvider.TOGGLE_BUTTON_ID)).click();
+                By.id(ValueChangeModeButtonProvider.EAGER_RADIO_ID)).click();
         updateValues(textFieldValueDiv, textField, false);
     }
 

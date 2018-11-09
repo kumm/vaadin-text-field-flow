@@ -44,7 +44,7 @@ public class PasswordFieldIT extends ComponentDemoTest {
 
         updateValues(passwordFieldValueDiv, passwordField, true);
         layout.findElement(
-                By.id(ValueChangeModeButtonProvider.TOGGLE_BUTTON_ID)).click();
+                By.id(ValueChangeModeButtonProvider.EAGER_RADIO_ID)).click();
         updateValues(passwordFieldValueDiv, passwordField, false);
     }
 

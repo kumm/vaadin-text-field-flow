@@ -75,7 +75,7 @@ public class PasswordFieldView extends DemoView {
 
         addCard("Basic password field", button, passwordField,
                 new ValueChangeModeButtonProvider(passwordField)
-                        .getToggleValueSyncButton(),
+                        .getValueChangeModeRadios(),
                 message);
     }
 
