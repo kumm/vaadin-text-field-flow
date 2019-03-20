@@ -15,17 +15,16 @@
  */
 package com.vaadin.flow.component.textfield.tests;
 
-import java.util.stream.IntStream;
-
+import com.vaadin.flow.component.radiobutton.testbench.RadioButtonGroupElement;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.demo.ComponentDemoTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.demo.ValueChangeModeButtonProvider;
-import com.vaadin.flow.demo.ComponentDemoTest;
+import java.util.stream.IntStream;
 
 import static com.vaadin.flow.data.value.ValueChangeMode.EAGER;
 
@@ -47,9 +46,8 @@ public class TextAreaIT extends ComponentDemoTest {
                 .findElement(By.id("text-area-with-value-change-listener"));
 
         updateValues(textFieldValueDiv, textArea, true);
-        layout.findElement(
-                By.id(ValueChangeModeButtonProvider.getRadioId(
-                        EAGER, TextArea.class.getSimpleName()))).click();
+        $(RadioButtonGroupElement.class).id(TextArea.class.getSimpleName())
+                .selectByText(EAGER.toString());
         updateValues(textFieldValueDiv, textArea, false);
     }
 

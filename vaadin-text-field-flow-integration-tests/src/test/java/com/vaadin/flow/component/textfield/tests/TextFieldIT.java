@@ -15,15 +15,14 @@
  */
 package com.vaadin.flow.component.textfield.tests;
 
+import com.vaadin.flow.component.radiobutton.testbench.RadioButtonGroupElement;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.demo.ComponentDemoTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.textfield.demo.ValueChangeModeButtonProvider;
-import com.vaadin.flow.demo.ComponentDemoTest;
 
 import static com.vaadin.flow.data.value.ValueChangeMode.EAGER;
 
@@ -45,9 +44,8 @@ public class TextFieldIT extends ComponentDemoTest {
                 .findElement(By.id("text-field-with-value-change-listener"));
 
         updateValues(textFieldValueDiv, textField, true);
-        layout.findElement(
-                By.id(ValueChangeModeButtonProvider.getRadioId(
-                        EAGER, TextField.class.getSimpleName()))).click();
+        $(RadioButtonGroupElement.class).id(TextField.class.getSimpleName())
+                .selectByText(EAGER.toString());
         updateValues(textFieldValueDiv, textField, false);
     }
 
